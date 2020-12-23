@@ -1,0 +1,28 @@
+{% extends 'master.html'%}
+{%block title%} Questions lists{%endblock%}
+
+{%block content%}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Published on</th>
+      <th scope="col">VIEW</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for question in latest_question_list%}
+    <tr>
+      <th scope="row">{{question.id}}</th>
+      <td>{{question.question_text}}</td>
+      <td>{{question.pub_date}}</td>
+      <td><a href="/polls/{{question.id}}/" class="btn  btn-sm btn-success">Read more</a></td>
+    </tr>
+    {%endfor%}
+    
+  </tbody>
+</table>
+
+
+{%endblock %}

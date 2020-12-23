@@ -1,0 +1,42 @@
+{% extends 'master.html'%}
+{%block title%}{{question.question_text}}{%endblock%}
+{%block content%}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col">Published on</th>
+      <th scope="col">Choices</th>
+      <th scope="col">Vote</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{question.id}}</th>
+      <td>{{question}}</td>
+      <td>{{question.pub_date}}</td>
+      <td><ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}</li>
+        {% endfor %}
+        </ul></td>
+        <td>
+          <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+            <input type="submit" value="Vote" class="btn btn-sm btn-success px-4">
+            </form>
+          </td>
+    </tr>
+    
+  </tbody>
+
+
+</table>
+
+
+{%endblock %}
